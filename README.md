@@ -32,17 +32,18 @@ This tool is great for beginners looking to learn ethical hacking. If you’re a
 1. Install Nmap (instructions below for all OS).  
 2. Clone this repository:
    ```bash
-   git clone https://github.com/<your-username>/<your-repo-name>.git
+   git clone https://github.com/TAKACHIa/takachi-nmapper.git
    ```
 3. Navigate to the script directory:
    ```bash
-   cd <your-repo-name>
+   cd takachi-nmapper
    ```
-4. Run the script:
+4. Run the script  (check before if you have nmap YOU SMART ):
+5. 
    ```bash
-   bash <script-name>.sh
+   sudo bash nmap-automated-scripts.sh
    ```
-5. Input the target IP and enjoy the automation!
+6. Input the target IP and enjoy the automation!
 
 ---
 
