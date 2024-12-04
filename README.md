@@ -18,7 +18,8 @@ This tool is great for beginners looking to learn ethical hacking. If you’re a
 - Automates several Nmap scans.  
 - Saves time and effort—just input the target IP and let the script handle the rest!  
 - Works with bash and requires only Nmap to be installed.  
-- Beginner-friendly, no extra configurations needed!  
+- Beginner-friendly, no extra configurations needed!
+- You can replace the default nmap commands with urs so you don't miss time ( Trust mine are efficient for a first of **information Gathering**)
 
 ---
 
