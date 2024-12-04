@@ -52,7 +52,10 @@ This tool is great for beginners looking to learn ethical hacking. If you’re a
 1. Download Nmap from the official [Nmap Download Page](https://nmap.org/download#windows).  
 2. Run the installer and follow the instructions.  
 
-![Windows Installer Screenshot](https://github.com/user-attachments/assets/8a468c2e-c899-4e2c-a514-e54522dcaee5)
+![image](https://github.com/user-attachments/assets/e9e0dab8-33e6-43da-bcc5-e7dbe24beba1)
+
+Download " Latest stable release self-installer: nmap-7.95-setup.exe "
+
 
 ---
 
