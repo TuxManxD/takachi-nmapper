@@ -1,0 +1,153 @@
+#!/bin/bash
+
+# Clear the terminal
+clear
+
+# Print formatted ASCII Art
+cat << "EOF"
+         _nnnn_
+        dGGGGMMb     ,""""""""""""""""""".
+       @p~qp~~qMb    | Linux Rules!        |
+       M|@||@) M|   _;....................'
+       @,----.JM| -'
+      JS^\__/  qKL
+     dZP        qKRb
+    dZP          qKKb
+   fZP            SMMb
+   HZM            MMMM
+   FqM            MMMM
+ __| ".        |\dS"q
+ |    `.       | `' \
+_)     \.___.,|     .'
+\____   )MMMMMM|   .'
+     `-'       `--' hjm
+EOF
+
+echo -e "\nChecking root privileges across OS (Linux, MacOS, Windows)..."
+printf '%0.s-' {1..50}
+echo
+
+# Verify `checking-admin-for-3-OS.py` existence
+if [ ! -f "checking-admin-for-3-OS.py" ]; then
+  echo "Error: 'checking-admin-for-3-OS.py' not found. Please ensure it exists in the current directory."
+  exit 1
+fi
+
+# Run the Python script
+python3 checking-admin-for-3-OS.py || { echo "Python script failed."; exit 1; }
+
+sleep 5
+clear
+
+cat << "EOF"
+                                ,        ,
+                               /(        )`
+                               \ \___   / |
+                               /- _  `-/  '
+                              (/\/ \ \   /\
+                              / /   | `    \
+                              O O   ) /    |
+                              `-^--'`<     '
+                  TM         (_.)  _  )   /
+ |  | |\  | ~|~ \ /             `.___/`    /
+ |  | | \ |  |   X                `-----' /
+ `__| |  \| _|_ / \  <----.     __ / __   \
+                     <----|====O)))==) \) /====
+                     <----'    `--' `.__,' \
+                                  |        |
+                                   \       /
+                              ______( (_  / \______
+                            ,'  ,-----'   |        \
+                            `--{__________)        \/
+EOF
+
+# Ensure script is running with sudo/root
+echo -e "\nValidating root/sudo privileges..."
+printf '%0.s-' {1..50}
+echo
+if [ "$EUID" -ne 0 ]; then
+  echo "Error: This script must be run as root or with sudo privileges. Exiting."
+  exit 1
+fi
+
+echo "Root/sudo privileges validated."
+sleep 2
+clear
+
+# Function: Add a delay
+pause() {
+    echo "Pausing for 2 seconds..."
+    sleep 2
+}
+
+# Welcome Message
+printf '%0.s-' {1..90}
+echo
+echo "Welcome! This is a network scanning tool built by Takachi using nmap."
+echo "It's my first cybersecurity tool. I hope you enjoy it and have a great day!"
+printf '%0.s-' {1..90}
+echo
+sleep 3
+
+# Validate target IP address
+validate_ip() {
+    local ip="$1"
+    local regex='^([0-9]{1,3}\.){3}[0-9]{1,3}$'
+    if [[ $ip =~ $regex ]]; then
+        # Ensure each octet is between 0-255
+        IFS='.' read -r -a octets <<< "$ip"
+        for octet in "${octets[@]}"; do
+            if ((octet < 0 || octet > 255)); then
+                return 1
+            fi
+        done
+        return 0
+    fi
+    return 1
+}
+
+# Prompt user for target IP address
+while true; do
+    echo -n "Enter target IP address > "
+    read TARGET
+    if validate_ip "$TARGET"; then
+        echo "Valid IP address: $TARGET"
+        break
+    else
+        echo "Invalid IP address. Please enter a valid IP (e.g., 192.168.0.1)."
+    fi
+done
+
+# Ensure output directory exists
+OUTPUT_DIR="nmap-results-here"
+mkdir -p "$OUTPUT_DIR"
+
+# Function: Run an nmap scan
+run_scan() {
+    local cmd="$1"
+    local output_file="$2"
+    
+    echo "Running: $cmd"
+    eval "$cmd > $output_file"
+    
+    if [ $? -ne 0 ]; then
+        echo "Scan failed for command: $cmd"
+    else
+        echo "Scan completed successfully. Results saved to $output_file"
+    fi
+    pause
+}
+
+# Execute nmap scans
+echo "Starting nmap scans on $TARGET..."
+run_scan "sudo nmap -f -Pn --top-ports 50 $TARGET" "$OUTPUT_DIR/fragmented_scan_results.txt"
+run_scan "sudo nmap -D RND:10 -Pn --top-ports 50 $TARGET" "$OUTPUT_DIR/decoy_scan_results.txt"
+run_scan "sudo nmap -T2 -Pn --top-ports 50 $TARGET" "$OUTPUT_DIR/slow_scan_results.txt"
+run_scan "sudo nmap -f -D RND:10 -T2 -Pn --top-ports 50 $TARGET" "$OUTPUT_DIR/combined_stealth_scan_results.txt"
+run_scan "sudo nmap -sS -v -Pn -g 88 --top-ports 50 $TARGET" "$OUTPUT_DIR/random_scan_results.txt"
+run_scan "sudo nmap -p 22,21,443,80,53 -sV --version-trace --version-all -Pn -O -A $TARGET" "$OUTPUT_DIR/final_results.txt"
+
+# Final Message
+echo "All scans completed. Check the '$OUTPUT_DIR' directory for results."
+echo "Have a great day!"
+pause
