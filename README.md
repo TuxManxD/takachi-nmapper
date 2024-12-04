@@ -51,7 +51,7 @@ This tool is great for beginners looking to learn ethical hacking. If you’re a
 
 ---
 
-## How to Install Nmap on Different OS
+## How to Install Nmap on Different OS ( If you don't already have it)
 
 ### 1. Windows
 1. Download Nmap from the official [Nmap Download Page](https://nmap.org/download#windows).  
