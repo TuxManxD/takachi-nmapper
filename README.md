@@ -38,8 +38,12 @@ This tool is great for beginners looking to learn ethical hacking. If you’re a
    ```bash
    cd takachi-nmapper
    ```
-4. Run the script  (check before if you have nmap YOU SMART ):
-5. 
+4. Give right permissions to the file so it can proceed !
+   ```bash
+   chmod +x nmap-automated-scripts.sh
+   ```
+5. Run the script  (check before if you have nmap YOU SMART ):
+
    ```bash
    sudo bash nmap-automated-scripts.sh
    ```
