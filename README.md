@@ -40,12 +40,12 @@ This tool is great for beginners looking to learn ethical hacking. If you’re a
    ```
 4. Give right permissions to the file so it can proceed !
    ```bash
-   chmod +x nmap-automated-scripts.sh
+   chmod +x nmap-automated-scripts
    ```
 5. Run the script  (check before if you have nmap YOU SMART ):
 
    ```bash
-   sudo bash nmap-automated-scripts.sh
+   sudo bash nmap-automated-scripts
    ```
 6. Input the target IP and enjoy the automation!
 
