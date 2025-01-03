@@ -73,7 +73,7 @@ fi
 echo "Root/sudo privileges validated."
 sleep 2
 clear
-cat >> "EOF"
+cat << "EOF"
 
                     ___.-------.___
                 _.-' ___.--;--.___ `-._
