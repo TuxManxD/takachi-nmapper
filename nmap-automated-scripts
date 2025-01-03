@@ -74,6 +74,44 @@ echo "Root/sudo privileges validated."
 sleep 2
 clear
 
+#!/bin/bash
+
+# Check if nmap is installed
+if command -v nmap &> /dev/null; then
+  echo "Nmap is already installed."
+else
+  echo "Nmap is not installed. Attempting to install via Nix..."
+
+  # Check if Nix is installed
+  if command -v nix &> /dev/null; then
+    echo "Nix is already installed."
+  else
+    echo "Installing Nix..."
+    sh <(curl -L https://nixos.org/nix/install) --daemon
+    # Check if Nix installation was successful (basic check)
+    if command -v nix &> /dev/null; then
+        echo "Nix installed successfully."
+    else
+        echo "Nix installation failed. Please check the installation instructions on the NixOS website."
+        exit 1
+    fi
+
+  fi
+
+  # Install nmap using Nix
+  echo "Installing nmap..."
+  nix-env -iA nixpkgs.nmap
+
+  # Check if nmap was successfully installed
+  if command -v nmap &> /dev/null; then
+    echo "Nmap installed successfully via Nix."
+  else
+    echo "Failed to install nmap via Nix.  Check for errors above."
+    exit 1
+  fi
+fi
+
+
 # Function: Add a delay
 pause() {
     echo "Pausing for 2 seconds..."
